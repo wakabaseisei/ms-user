@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"log"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/feature/rds/auth"
@@ -19,6 +20,8 @@ func NewDatabase(ctx context.Context, cfg config.DBConfig, awscfg aws.Config) (*
 	}
 	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?tls=true&multiStatements=true&allowCleartextPasswords=true&parseTime=true",
 		cfg.UserName, token, cfg.Endpoint(), cfg.Name)
+
+	log.Printf("%s: connstr", dsn)
 
 	db, serr := sql.Open("mysql", dsn)
 	if serr != nil {

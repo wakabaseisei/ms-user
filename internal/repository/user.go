@@ -14,6 +14,7 @@ type userRepository struct {
 }
 
 func NewUserRepository(conn *sql.DB) *userRepository {
+	log.Println(conn)
 	return &userRepository{
 		conn: conn,
 	}
